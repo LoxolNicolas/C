@@ -9,10 +9,12 @@ void vecteurToFile(FILE* f, float* vec, int ordre)
 	int i;
 	
 	fprintf(f, "%s", "[ ");
+	
 	for(i = 0; i < ordre; i++)
 	{
-		fprintf(f, "%.3f ", vec[i]);
-	}	
+		fprintf(f, "%.3f ", vec[i]); // PRECISION 3 CHIFFRE APRES LA VIRGULE
+	}
+		
 	fprintf(f, "%s", "]");
 }
 
@@ -22,15 +24,16 @@ float* vecteurFromFileByName(const char* nom, int* ordre)
 {
 	float* retour = NULL;
 	int i;
+	
 	FILE* f = fopen(nom, "r");
 	
 	if(f)
 	{
-		char buffer[5];
+		char buffer[5]; // TABLEAU QUI SERT A STOCKER L'ORDRE
 		
 		fscanf(f, "%s", buffer);
 		
-		(*ordre) = atoi(buffer);
+		*ordre = atoi(buffer);
 	
 		retour = (float*) malloc(sizeof(float) * (*ordre));
 		
@@ -43,7 +46,6 @@ float* vecteurFromFileByName(const char* nom, int* ordre)
 			else
 			{
 				libererVecteur(&retour);
-				retour = NULL;
 			}
 		}
 		
@@ -52,8 +54,6 @@ float* vecteurFromFileByName(const char* nom, int* ordre)
 
 	return retour;
 }
-
-
 
 float produitScalaire(float* x, float* y, int ordre) 
 {
@@ -71,6 +71,16 @@ float produitScalaire(float* x, float* y, int ordre)
 void libererVecteur(float** vec)
 {
 	free(*vec);
+	*vec = NULL;
+}
+
+int orthogonaux(float* x, float* y, int ordre)
+{
+	int retour;
+	
+	retour = (produitScalaire(x, y, ordre) == 0.0) ? 1 : 0;  
+	
+	return retour;
 }
 
 void matriceToFile(FILE* f, float** m, int n)
@@ -85,9 +95,12 @@ void matriceToFile(FILE* f, float** m, int n)
 		{
 			fprintf(f, "%.1f ", m[i][j]);
 		}
-		fprintf(f, "%s", "\n");
+		
+		if(i != n - 1)
+		{
+			fprintf(f, "%s", "\n");
+		}
 	}	
-
 }
 
 float** matriceFromFileName(const char* nom, int ordre)
@@ -98,7 +111,7 @@ float** matriceFromFileName(const char* nom, int ordre)
 	
 	if(f)
 	{
-		char buffer[5];
+		char buffer[5]; // TABLEAU QUI SERT A STOCKER L'ORDRE
 		
 		fscanf(f, "%s", buffer);
 		
@@ -108,20 +121,21 @@ float** matriceFromFileName(const char* nom, int ordre)
 		
 		for(k = 0; k < ordre; k++)
 		{
-			retour[k] = (float*) malloc(sizeof(float) * (ordre));
+			retour[k] = (float*) malloc(sizeof(float) * (ordre)); // ALLOCATION MATRICE
 		}
 		
-		for(i = 0; i < ordre; i++)
-		{
+		for(i = 0; i < ordre; i++) // REMPLISSAGE
+		{ 
 			for(j = 0; j < ordre; j++)
 			{
-				if(!feof(f))
+				if(!feof(f)) 
 				{
 					fscanf(f, "%f", &(retour[i][j]));
 				}
-				else
+				
+				else // SI ON RENCONTRE LA FIN DU FICHIER (Fichier mal remplie) 
 				{
-					for(k = 0; k < ordre; k++)
+					for(k = 0; k < ordre; k++) // ON FREE LA MATRICE ET ON RENVOIT NULL
 					{
 						free(retour[k]);
 					}
@@ -136,5 +150,22 @@ float** matriceFromFileName(const char* nom, int ordre)
 		fclose(f);
 	}
 
+	return retour;
+}
+
+float* matriceParVecteur(float** mat, float* vec, int ordre)
+{
+	int i, j;
+	
+	float* retour = calloc(ordre, sizeof(float));
+	
+	for(i = 0; i < ordre; i++)
+	{	
+		for(j = 0; j < ordre; j++)
+		{
+			retour[i] += (mat[i][j] * vec[j]);
+		}
+	}
+	
 	return retour;
 }
