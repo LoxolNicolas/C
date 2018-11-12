@@ -1,6 +1,4 @@
 #include "master.h"
-#include "master.c"
-
 
 int main(int argc, char** argv)
 {
@@ -13,7 +11,6 @@ int main(int argc, char** argv)
 	
 	if(argc > 1) /* initialisation ramdom manuellement */
 	{
-		printf("I'm in and %d\n", atoi(argv[1]));
 		srand(atoi(argv[1]));
 	}
 	
@@ -21,6 +18,8 @@ int main(int argc, char** argv)
 	{
 		srand(time(NULL));
 	}
+
+	printf("Bienvenue dans le mastermind :\n");
 	
 	initialiser_plateau(plateau);
 	initialiser_solution(solution);
@@ -29,6 +28,7 @@ int main(int argc, char** argv)
 	{
 		bp = 0, mp = 0;
 		saisie(proposition);
+		vocabCouleur();
 		//compiler_proposition(proposition, solution, &bp, &mp);
 		MajPlateau(plateau, proposition, bp, mp, nbcoup);
 		affichagePlateau(plateau);
@@ -40,6 +40,3 @@ int main(int argc, char** argv)
 	
 	return 0;	
 }
-
-
-

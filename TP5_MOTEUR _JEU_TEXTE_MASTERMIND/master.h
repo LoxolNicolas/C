@@ -17,7 +17,8 @@
 /* DECLARATION DES TYPES PERSONNELS */
 // et de leur typedef si besoin
 
-typedef struct {
+typedef struct 
+{
 
 } combinaison;
 
@@ -30,6 +31,7 @@ void saisie(int prop[NB_COLONNES]);
 void MajPlateau(int plateau[NB_LIGNES][NB_COLONNES + 2], int prop[NB_COLONNES], int bp, int mp, int nbcoup);
 void affichagePlateau(int plateau[NB_LIGNES][NB_COLONNES +2]);
 void resultat(int bp);
-
+void vocabCouleur();
+void coloration(int cellule);
 
 #endif

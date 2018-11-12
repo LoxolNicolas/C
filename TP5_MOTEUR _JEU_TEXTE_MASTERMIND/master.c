@@ -10,14 +10,13 @@ void initialiser_solution(int tabS[NB_COLONNES])
 	}
 }
 
-
 void initialiser_plateau(int plateau[NB_LIGNES][NB_COLONNES + 2])
 {
 	int i, j;
 	
 	for(i = 0; i < NB_LIGNES; i++)
 	{
-		for(j = 0; j < NB_COLONNES + 2; j++)
+		for(j = 0; j < (NB_COLONNES + 2); j++)
 		{
 			plateau[i][j] = 0;
 		}
@@ -80,39 +79,46 @@ void affichagePlateau(int plateau[NB_LIGNES][NB_COLONNES +2])
 	int i, j;
 	
 	printf("================b==m==\n");
-	for(i = 0; i < NB_LIGNES ; i++)
+
+	for(i = 0; i < NB_LIGNES; i++)
 	{
 		printf("|");
+
 		for(j = 0; j < (NB_COLONNES + 2); j++)
-		{
-			if(j == 4)
+		{	
+
+			coloration(plateau[i][j]);
+
+			switch(j)
 			{
-				couleur("32");
-				printf(" %d ", plateau[i][j]);
-				couleur("0");
-			}
-			
-			else if(j == 5)
-			{
-				couleur("31");
-				printf(" %d ", plateau[i][j]);
-				couleur("0");
-			}
-			
-			else if(j == 3)
-			{
-				printf(" %d ", plateau[i][j]);
-				printf("||");
-			}
-			
-			else
-			{
-				printf(" %d ", plateau[i][j]);
+				case 3:
+					printf(" %d ", plateau[i][j]);
+					couleur("0");
+					printf("||");
+					break;
+
+				case 4:
+					couleur("32");
+					printf(" %d ", plateau[i][j]);
+					couleur("0");
+					break;
+
+				case 5:
+					couleur("31");
+					printf(" %d ", plateau[i][j]);
+					couleur("0");
+					break;
+
+				default:
+					printf(" %d ", plateau[i][j]);
+					couleur("0");
+					break;
 			}
 		}
 		
 		printf("|\n");
 	}
+
 	printf("======================\n");
 }
 
@@ -131,4 +137,44 @@ void resultat(int bp)
 		printf("YOU LOSE\n");
 		couleur("0");
 	}
+}
+
+void vocabCouleur()
+{
+	printf("1-Jaune\n");
+	printf("2-Rouge\n");
+	printf("3-Vert\n");
+	printf("4-Blanc\n");
+	printf("5-Rose\n");
+	printf("6-Cyan\n");
+}
+
+void coloration(int cellule)
+{
+	switch(cellule)
+	{
+		case 1:
+			couleur("33");
+			break;
+					
+		case 2:
+			couleur("31");
+			break;
+					
+		case 3:
+			couleur("32");
+			break;
+					
+		case 4:
+			couleur("0");
+			break;
+					
+		case 5: 
+			couleur("35");
+			break;
+					
+		case 6:
+			couleur("36");
+			break;
+	}	
 }
