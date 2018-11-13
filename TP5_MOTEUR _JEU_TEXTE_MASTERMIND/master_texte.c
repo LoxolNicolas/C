@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 		affichagePlateau(plateau);
 		nbcoup++;
 	
-	}while(bp != 4 && nbcoup < 4);
+	}while(bp != 4 && nbcoup < 10);
 	
 	resultat(bp, solution);
 	
