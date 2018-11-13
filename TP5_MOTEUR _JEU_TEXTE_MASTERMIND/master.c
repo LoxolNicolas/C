@@ -23,12 +23,42 @@ void initialiser_plateau(int plateau[NB_LIGNES][NB_COLONNES + 2])
 	}
 }
 
-/*
 void compiler_proposition(int prop[NB_COLONNES], int sol[NB_COLONNES], int* bp, int* mp) 
 {
+	int i, j;
 	
+	int tabCorres[NB_COLONNES] = {0, 0, 0, 0};
+	int tabCorresP[NB_COLONNES] = {0, 0, 0, 0};
+	
+	for(i = 0; i < NB_COLONNES; i++)
+	{
+		if(prop[i] == sol[i])
+		{
+			(*bp)++;
+			tabCorres[i] = 1;
+			tabCorresP[i] = 1;
+		}
+	}
+	
+	for(i = 0; i < NB_COLONNES; i++)
+	{
+		for(j = 0; j < NB_COLONNES; j++)
+		{
+			if(prop[i] == sol[j])
+			{
+				if(tabCorres[j] == 0 && tabCorresP[i] == 0)
+				{
+					if(i != j)
+					{
+						(*mp)++;
+						tabCorres[j] = 1;
+						tabCorresP[i] = 1;
+					}
+				}
+			}
+		}
+	}	
 }
-*/
 
 void saisie(int prop[NB_COLONNES])
 {
@@ -122,20 +152,22 @@ void affichagePlateau(int plateau[NB_LIGNES][NB_COLONNES +2])
 	printf("======================\n");
 }
 
-void resultat(int bp)
+void resultat(int bp, int sol[NB_COLONNES])
 {
 	if(bp == 4)
 	{
-		couleur("31");
+		couleur("32");
 		printf("YOU WIN\n");
 		couleur("0");
 	}
 	
 	else
 	{
-		couleur("32");
+		couleur("31");
 		printf("YOU LOSE\n");
 		couleur("0");
+		
+		printf("La solution etait : %d %d %d %d\n", sol[0], sol[1], sol[2], sol[3]);
 	}
 }
 

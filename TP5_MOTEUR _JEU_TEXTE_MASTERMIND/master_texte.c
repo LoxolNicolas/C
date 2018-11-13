@@ -20,23 +20,25 @@ int main(int argc, char** argv)
 	}
 
 	printf("Bienvenue dans le mastermind :\n");
-	
+
 	initialiser_plateau(plateau);
 	initialiser_solution(solution);
 	
+	printf("%d %d %d %d \n", solution[0], solution[1], solution[2], solution[3]);
+	
 	do
 	{
-		bp = 0, mp = 0;
-		saisie(proposition);
+		bp = 0, mp = 0; // remise a zero des valeurs a trouve.
 		vocabCouleur();
-		//compiler_proposition(proposition, solution, &bp, &mp);
+		saisie(proposition);
+		compiler_proposition(proposition, solution, &bp, &mp);
 		MajPlateau(plateau, proposition, bp, mp, nbcoup);
 		affichagePlateau(plateau);
 		nbcoup++;
 	
-	}while(bp != 4 && nbcoup < 10);
+	}while(bp != 4 && nbcoup < 4);
 	
-	resultat(bp);
+	resultat(bp, solution);
 	
 	return 0;	
 }

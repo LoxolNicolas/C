@@ -26,11 +26,11 @@ typedef struct
 
 void initialiser_solution(int tabS[NB_COLONNES]);
 void initialiser_plateau (int plateau[NB_LIGNES][NB_COLONNES + 2]);
-//void compiler_proposition(int prop[NB_COLONNES], int sol[NB_COLONNES], int* bp, int* mp); 
+void compiler_proposition(int prop[NB_COLONNES], int sol[NB_COLONNES], int* bp, int* mp); 
 void saisie(int prop[NB_COLONNES]);
 void MajPlateau(int plateau[NB_LIGNES][NB_COLONNES + 2], int prop[NB_COLONNES], int bp, int mp, int nbcoup);
 void affichagePlateau(int plateau[NB_LIGNES][NB_COLONNES +2]);
-void resultat(int bp);
+void resultat(int bp, int solution[NB_COLONNES]);
 void vocabCouleur();
 void coloration(int cellule);
 
