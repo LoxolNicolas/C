@@ -23,9 +23,7 @@ int main(int argc, char** argv)
 
 	initialiser_plateau(plateau);
 	initialiser_solution(solution);
-	
-	printf("%d %d %d %d \n", solution[0], solution[1], solution[2], solution[3]);
-	
+		
 	do
 	{
 		bp = 0, mp = 0; // remise a zero des valeurs a trouve.
